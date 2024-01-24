@@ -1,16 +1,10 @@
 {
-    "persons": {
-        "1": {
+    "persons": [
+        {
             "name": "\u0421\u0435\u043c\u0435\u043d",
             "surname": "\u0421\u0435\u043c\u0435\u043d\u043e\u0432",
             "date_of_birth": "02.02.2002",
             "location": "\u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433"
-        },
-        "2": {
-            "name": "r",
-            "surname": "r",
-            "date_of_birth": "r",
-            "location": "r"
         }
-    }
+    ]
 }
