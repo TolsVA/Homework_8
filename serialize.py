@@ -22,15 +22,3 @@ def serialize_persons(persons_json):
         location = dic['location'])
         list_person.append(person)
     return list_person
-        
-# def serialize_persons(persons_json):
-#     list_person = []
-#     for pers in persons_json['persons']:
-#         person = Person(
-#                 name=pers['name'],
-#                 surname=pers['surname'],
-#                 date_of_birth=pers['date_of_birth'],
-#                 location=pers['location']
-#             )
-#         list_person.append(person)
-#     return list_person
