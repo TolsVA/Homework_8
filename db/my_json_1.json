@@ -7,16 +7,10 @@
             "location": "\u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433"
         },
         "2": {
-            "name": "r",
-            "surname": "r",
-            "date_of_birth": "r",
-            "location": "r"
-        },
-        "3": {
-            "name": "33",
-            "surname": "33",
-            "date_of_birth": "33",
-            "location": "33"
+            "name": "\u0412\u0430\u0441\u0438\u043b\u0438\u0439",
+            "surname": "\u0412\u0430\u0441\u0435\u0447\u043a\u0438\u043d",
+            "date_of_birth": "18.11.1989",
+            "location": "\u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a"
         }
     }
 }

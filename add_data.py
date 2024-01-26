@@ -3,17 +3,15 @@ from serialize import *
 import json
 import os
 
-def add_row():
-    with open(f'db2/path_file.txt', 'r', encoding='utf-8') as f:
-        path_file = ''.join(f.readlines())
-
+def add_data(path_file, person= None):
     if os.path.splitext(path_file)[1] == '.json':
-        w_json(path_file)
+        w_json(path_file, person)
     elif os.path.splitext(path_file)[1] == '.txt':
-        add_row_txt(path_file)
+        add_row_txt(path_file, person)
 
-def w_json(path_file):
-    person = input_person() # person
+def w_json(path_file, person):
+    if person == None:
+        person = input_person() # person
     with open(path_file, 'r', encoding='utf-8') as f:
         persons_json = json.load(f) # dict
 
@@ -29,8 +27,9 @@ def w_json(path_file):
 
 
 
-def add_row_txt(path_file):
-    person = input_person()
+def add_row_txt(path_file, person):
+    if person == None:
+        person = input_person()
     with open(path_file, 'r', encoding='utf-8') as f:
         now_number_row = len(f.readlines()) + 1
     person_str = f'{person.name} {person.surname} {person.date_of_birth} {person.location}'

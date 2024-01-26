@@ -1,98 +1,91 @@
-from person import *
-from serialize import *
-import os
+from folder import Folder 
+from file import File
+from Message import *
+from print_data import *
 from add_data import *
-# from print_data import *
+from command import *
+from delete_data import *
+
+
+folder = Folder()
+messege = Message()
+file = File()
+file_name = None
 
 def start_menu():
-    path = 'db/'
-    list_file = os.listdir(path)
-    lenght = len(list_file)
-    menu_str = '\n\t\t '.join([f'{i + 1}. \t{list_file[i]}' for i in range(lenght)])
-    welcome = ''.join(menu_read('db2/welcome.txt'))
-    select_function = ''.join(menu_read('db2/choose_file.txt'))
-    command = None
-    while command not in [str(i + 1) for i in range(lenght)]:
-        if command != None:
-            welcome = ''.join(menu_read('db2/errors.txt'))
-        # os.system('cls')
-        show_menu(menu_str, welcome.replace('.', f'{lenght}'), select_function, command)
-        command = input("Введите номер команды: ") 
-    
-    # os.system('cls')
-    path_file = f'{path}{list_file[int(command) - 1]}'
-    with open(f'db2/path_file.txt', 'w', encoding='utf-8') as file:
-        file.writelines(path_file)
+    lenght = len(folder.get_list_file())
+    command = get_command([str(i + 1) for i in range(lenght)], str(lenght), messege.show_menu_welcome, messege.show_menu_error, folder.get_menu()) 
+    global file_name
+    file_name = f'{folder.get_path()}{folder.get_list_file()[int(command) - 1]}'
+    menu_program()       
 
-    menu_program(path_file)       
-
-def show_menu(menu_str, welcome, select_function, command):
-    print(welcome.replace('<< >>', f'<< {command} >>'), select_function, '\n', '\t\t '+ menu_str)
-    
-def exit():
-    print(''.join(menu_read('db2/exit.txt')))
-
-def menu_program(path_file):
-    menu = menu_read('db2/menu_program.json')['menu']
-    menu_str = '\n\t\t '.join([f'{key}. {menu[key][0].replace("_", " ")}' for key in menu])
-    select_function = ''.join(menu_read('db2/select_function.txt'))
-    welcome = f'Вы выбрали для работы файл << {path_file} >>\n'
-    command = None
-    caunt = max(map(int, list(menu.keys())))
-    while command not in menu.keys():
-        # os.system('cls')
-        if command != None:
-            error = ''.join(menu_read('db2/errors.txt'))
-            error = error.replace('<< >>', f'<< {command} >>')
-            print(error.replace('.', f'{caunt}'))
-        show_menu(menu_str, welcome, select_function, command)
-        command = input("Введите номер команды: ")
-    # os.system('cls')
+def menu_program():
+    menu = file.get_list_menu()
+    lenght = max(map(int, list(menu.keys())))
+    command = get_command(menu.keys(), str(lenght), messege.show_menu_function_choice, messege.show_menu_error_fun, file.get_menu(), file_name)
     globals()[menu[command][1]]()
 
-def menu_read(name_fail):
-    data = None
-    with open(name_fail, 'r', encoding='utf-8') as file:
-        if os.path.exists(name_fail) == True:
-            if os.path.splitext(name_fail)[1] == '.json':
-                data = json.load(file)
-            elif os.path.splitext(name_fail)[1] == '.txt':
-                data = file.readlines()
-    return data
+def print_file():
+    print_data(file_name)
+    action_request()
 
-def print_file(path_file = None):
-    if path_file == None:
-        path_file = menu_read('db2/path_file.txt')[0]
-    if os.path.splitext(path_file)[1] == '.json':
-        print(f'Вывод данных из {path_file}')
-        with open(path_file, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+def add_row(): 
+    add_data(file_name)
+    action_request()
 
-        list_person = serialize_persons(data)
-        for i in range(len(list_person)):
-            print(list_person[i].display_info(i + 1))
+def delete_row(file_copy, command): delete_data(file_copy, command)
 
-    elif os.path.splitext(path_file)[1] == '.txt':
-        print(f'Вывод данных из файла {path_file}:\n')
-        with open(path_file, 'r', encoding='utf-8') as file:
-            data = file.readlines()
-            for j in range(len(data)):
-                list_person = data[j].split()
-                person = Person(
-                    list_person[1],
-                    list_person[2],
-                    list_person[3],
-                    list_person[4]
-                )
-                print(person.display_info(j + 1))
+def change_row(): print('Пока не готово')
 
-    num = input('\nВеруться в предыдущее меню  ->  1 и Enter\n\
+def action_request():
+    num = input('Веруться в предыдущее меню  ->  1 и Enter\n\
     \rВернуться в главное меню    ->  2 и Enter\n\
-    \rВыйти из программы          ->  любая клавиша и Enter')
+    \rВыйти из программы          ->  любая клавиша и Enter\n')
 
-    if num == '1':
-        menu_program(path_file)
-    elif num == '2':
-        start_menu()
-    else:
-        exit()
+    if num == '1': menu_program()
+    elif num == '2': start_menu()
+    else: exit()
+
+def copy_row():
+    file_copy = print_data(file_name)
+    length = len(file_copy)
+    command = None
+    while command not in [str(i + 1) for i in range(length)]:
+        command = input('Введите номер записи Person_ которую вы бы хотели скопировать.')
+        if command not in [str(i + 1) for i in range(length)]:
+            print(f'Не коректный ввод данных введите число от 1 до {length}')
+
+    person = file_copy[int(command)-1]
+    if type(person) != Person: 
+        data = person.split()
+        person = Person(data[1], data[2], data[3], data[4])
+
+    copy_str = person
+    if type(person) != str:
+        copy_str = f'{command} {person.name} {person.surname} {person.date_of_birth} {person.location}'
+
+    print(f'Указанные данные\n{copy_str}скопированы в буфер обмена данных\nВыберите фал для вставки данных')
+    lenght = len(folder.get_list_file())
+    command2 = get_command([str(i + 1) for i in range(lenght)], str(lenght), messege.show_menu_welcome, messege.show_menu_error, folder.get_menu()) 
+
+    recipient_file = f'{folder.get_path()}{folder.get_list_file()[int(command2) - 1]}'
+
+    print(f'файл донор {file_name}')
+    print(f'Скопированные данные ({copy_str})')   
+    print(f'файл получатель {recipient_file}')
+
+    add_data(recipient_file, person)
+
+    s = None
+    while s not in ['y', 'n']:
+        s = input('Данные сохранены Удалить данные из файла донора y/n :  ')
+
+    if s == 'y':
+        delete_row(file_copy, command)
+
+
+    # start_menu()
+
+    # print(menu)
+
+    # insert_file = print_data(file_name)
