@@ -1,8 +1,8 @@
 def delete_data(file_copy, command):
     print(file_copy)
     print(command)
-    
 
+# Новый комент
     # count_rows = len(data)
     # if count_rows == 0:
     #     print("Файл пусто!")
