@@ -33,5 +33,3 @@ def menu_read(name_fail):
                 data = file.readlines()
     return data
     
-    # with open('db2/path_file.txt', 'w', encoding='utf-8') as f:
-    #     f.writelines(path_file)

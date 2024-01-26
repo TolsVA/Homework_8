@@ -33,7 +33,7 @@ def add_row():
     add_data(file_name)
     action_request()
 
-def delete_row(file_copy, command): delete_data(file_copy, command)
+def delete_row(file_copy, command, file_name): delete_data(file_copy, command,file_name)
 
 def change_row(): print('Пока не готово')
 
@@ -81,7 +81,7 @@ def copy_row():
         s = input('Данные сохранены Удалить данные из файла донора y/n :  ')
 
     if s == 'y':
-        delete_row(file_copy, command)
+        delete_row(file_copy, command, file_name)
 
 
     # start_menu()
