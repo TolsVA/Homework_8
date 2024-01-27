@@ -1,4 +1,3 @@
-from folder import Folder 
 from file import File
 from Message import *
 from print_data import *
@@ -6,13 +5,16 @@ from add_data import *
 from command import *
 from delete_data import *
 
-
-folder = Folder()
+folder = None
 messege = Message()
 file = File()
 file_name = None
 
-def start_menu():
+def start_menu(f=None):
+    if f != None:
+        global folder
+        folder = f
+
     lenght = len(folder.get_list_file())
     command = get_command([str(i + 1) for i in range(lenght)], str(lenght), messege.show_menu_welcome, messege.show_menu_error, folder.get_menu()) 
     global file_name
