@@ -101,10 +101,3 @@ def copy_row():
 
     if s == 'y':
         delete_data(file_copy, command, file_name)
-
-
-    # start_menu()
-
-    # print(menu)
-
-    # insert_file = print_data(file_name)
