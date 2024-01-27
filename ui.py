@@ -33,9 +33,28 @@ def add_row():
     add_data(file_name)
     action_request()
 
-def delete_row(file_copy, command, file_name): delete_data(file_copy, command,file_name)
+def delete():
+    s = None
+    caunt = False
+    while s not in ['y', 'n']:
+        if caunt:
+            s = input(f'Ошибка вы ввели не коректные данные: \
+                    \n\t\tвведите << y >> -> если хотите удалить файл {file_name} или << n >> -> если нет : ')
+        else:
+            s = input(f'Вы уверены что хотите удалить файл {file_name} y/n : ')
+        caunt = True
+    if s == 'y':
+        os.remove(file_name)
+        print(f'Файл {file_name} удалён')
+    
+    folder.set_path('db/')
+    
+    action_request()
+    
 
-def change_row(): print('Пока не готово')
+def change_row(): 
+    print('Пока не готово')
+    action_request()
 
 def action_request():
     num = input('Веруться в предыдущее меню  ->  1 и Enter\n\
@@ -81,7 +100,7 @@ def copy_row():
         s = input('Данные сохранены Удалить данные из файла донора y/n :  ')
 
     if s == 'y':
-        delete_row(file_copy, command, file_name)
+        delete_data(file_copy, command, file_name)
 
 
     # start_menu()

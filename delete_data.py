@@ -1,9 +1,6 @@
 import os
 
 def delete_data(file_copy, command, file_name):
-    # print(file_copy)
-    # print(command)
-
     for  i in range(len(file_copy)):
         person = file_copy[i].split()
         if person[0] == command:
