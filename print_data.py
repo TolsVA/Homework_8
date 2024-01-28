@@ -17,7 +17,6 @@ def print_data(file_name):
         print(f'Вывод данных из файла {file_name}:\n')
         with open(file_name, 'r', encoding='utf-8') as file:
             data = file.readlines()
-            print(data)
             for i in range(len(data)):
                 c = data[i].split()
                 pers = Person(c[1], c[2], c[3], c[4])

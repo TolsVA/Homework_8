@@ -19,7 +19,6 @@ class Message():
 
     def show_menu_function_choice(self, path, menu):
         choice = self.get_your_choice().replace('<< >>', f'{path}')
-        # print(f'\nВы выбрали для работы файл << {path} >>\n', self.__select_function, '\n', '\t\t', menu)
         print(choice, self.__select_function, '\n', '\t\t', menu)
 
     def show_menu_error_fun(self, lenght, command, menu, path):
