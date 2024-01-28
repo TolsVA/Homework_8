@@ -5,11 +5,11 @@ import os
 
 def add_data(path_file, person= None):
     if os.path.splitext(path_file)[1] == '.json':
-        w_json(path_file, person)
+        add_json(path_file, person)
     elif os.path.splitext(path_file)[1] == '.txt':
         add_row_txt(path_file, person)
 
-def w_json(path_file, person):
+def add_json(path_file, person):
     if person == None:
         person = input_person() # person
     with open(path_file, 'r', encoding='utf-8') as f:
